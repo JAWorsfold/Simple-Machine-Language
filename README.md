@@ -18,14 +18,13 @@ amongst other skills.
 
 ## Details
 
-**Name**: Your name should appear here
+**Name**: Joseph Worsfold
 
-**Your userid**: e.g., myname01
+**Your userid**: jworsf01
 
 ### Comments to grader
 
-Anything you want the grader to know; otherwise just remove this section.
-
+tbc
 ### Feedback to student
 
 Will appear here.
