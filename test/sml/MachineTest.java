@@ -8,8 +8,28 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MachineTest {
 
+  Machine machine;
+  Machine anotherMachine;
+  Registers registers;
+  Registers anotherReg;
+  int[] regValues;
+  int regLength = 32;
+  Labels labels;
+
+
   @BeforeEach
   void setUp() {
+    machine = new Machine();
+    anotherMachine = new Machine();
+    registers = new Registers();
+    anotherReg = new Registers();
+    regValues = new int[regLength];
+    int regInput = 2;
+    for (int i = 0; i < regLength; i++) {
+      regValues[i] = regInput;
+      regInput += 2;
+    }
+    registers.setRegisters(regValues);
   }
 
   @AfterEach
@@ -21,7 +41,7 @@ class MachineTest {
   }
 
   @Test
-  void toString() {
+  void toStringTest() {
   }
 
   @Test
@@ -46,10 +66,19 @@ class MachineTest {
 
   @Test
   void getRegisters() {
+
   }
 
   @Test
   void setRegisters() {
+    machine.setRegisters(registers);
+    for (int i = 0; i < 32; i++) {
+      assertEquals(machine.getRegisters().getRegister(i), registers.getRegister(i));
+    }
+    assertTrue(machine.getRegisters().equals(registers));
+    machine.setRegisters(anotherReg);
+    assertFalse(machine.getRegisters().equals(registers));
+    assertTrue(machine.getRegisters().equals(anotherReg));
   }
 
   @Test
@@ -65,10 +94,15 @@ class MachineTest {
   }
 
   @Test
-  void hashCode() {
+  void hashCodeTest() {
+    assertNotEquals(machine.hashCode(), anotherMachine.hashCode());
+    machine = anotherMachine;
+    assertEquals(machine.hashCode(), anotherMachine.hashCode());
   }
 
   @Test
   void canEqual() {
+    assertTrue(machine.canEqual(anotherMachine));
+    assertFalse(machine.canEqual(registers));
   }
 }
