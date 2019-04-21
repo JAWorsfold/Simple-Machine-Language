@@ -24,7 +24,7 @@ public class DivInstruction extends Instruction {
    * @param operator2 the second operand
    */
   public DivInstruction(String label, int res, int operator1, int operator2) {
-    this(label, "add");
+    this(label, "div");
     this.result = res;
     this.op1 = operator1;
     this.op2 = operator2;
