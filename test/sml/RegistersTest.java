@@ -91,8 +91,16 @@ class RegistersTest {
   void hashCodeTest() {
   }
 
+  /**
+   * Created new Registers object to test canEqual. Tested new registers object,
+   * registers itself, and against another object.
+   */
   @Test
   void canEqual() {
+    Registers otherRegs = new Registers();
+    assertTrue(registers.canEqual(otherRegs));
+    assertFalse(registers.canEqual(regValues));
+    assertTrue(registers.canEqual(registers));
   }
 
   /**
