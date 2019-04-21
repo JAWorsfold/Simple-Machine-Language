@@ -29,8 +29,17 @@ class RegistersTest {
     registers = null;
   }
 
+  /**
+   * Test setRegister by amending my existing registers array, then testing the new values.
+   * Assert that an ArrayIndexOutOfBoundsException is thrown if trying to access an index above 31.
+   */
   @Test
   void setRegister() {
+    registers.setRegister(3, 33);
+    registers.setRegister(31, 12345);
+    assertEquals(33, registers.getRegister(3));
+    assertEquals(12345, registers.getRegister(31));
+    assertThrows(ArrayIndexOutOfBoundsException.class, () -> { registers.setRegister(-1, 1); } );
   }
 
   /**
@@ -58,8 +67,20 @@ class RegistersTest {
     }
   }
 
+  /**
+   * Create a new array which is the reverse of regValues, then set registers to this new
+   * array with setRegisters. Test that setRegisters worked by comparing array values.
+   */
   @Test
   void setRegisters() {
+    int[] reverseReg = new int[regLength];
+    for (int i = 0; i < 32; i++) {
+      reverseReg[i] = regValues[regLength - 1 - i];
+    }
+    registers.setRegisters(reverseReg);
+    for (int i = 0; i < regLength; i++) {
+      assertEquals(reverseReg[i], registers.getRegister(i));
+    }
   }
 
   @Test
@@ -74,7 +95,18 @@ class RegistersTest {
   void canEqual() {
   }
 
+  /**
+   * Built registers string using StringBuilder. Tested against the registers toString method.
+   */
   @Test
   void toStringTest() {
+    StringBuilder sb = new StringBuilder(" registers=[");
+    for (int i = 0; i < regLength - 1; i++) {
+      sb.append(registers.getRegister(i));
+      sb.append(", ");
+    }
+    sb.append(registers.getRegister(regLength - 1));
+    sb.append("]");
+    assertEquals(sb.toString(), registers.toString());
   }
 }
