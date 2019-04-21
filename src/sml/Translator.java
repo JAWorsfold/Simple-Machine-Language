@@ -4,6 +4,7 @@ import sml.instructions.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.*;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -79,51 +80,51 @@ public final class Translator {
     // removed. Translate line into an instruction with label label
     // and return the instruction
     public Instruction getInstruction(String label) {
-        int s1; // Possible operands of the instruction
-        int s2;
-        int r;
-        int x;
 
         if (line.equals("")) {
             return null;
         }
 
-        String ins = scan();
-        switch (ins) {
-            case "add":
-                r = scanInt();
-                s1 = scanInt();
-                s2 = scanInt();
-                return new AddInstruction(label, r, s1, s2);
-            case "sub":
-                r = scanInt();
-                s1 = scanInt();
-                s2 = scanInt();
-                return new SubInstruction(label, r, s1, s2);
-            case "mul":
-                r = scanInt();
-                s1 = scanInt();
-                s2 = scanInt();
-                return new MulInstruction(label, r, s1, s2);
-            case "div":
-                r = scanInt();
-                s1 = scanInt();
-                s2 = scanInt();
-                return new DivInstruction(label, r, s1, s2);
-            case "lin":
-                r = scanInt();
-                s1 = scanInt();
-                return new LinInstruction(label, r, s1);
-            case "out":
-                r = scanInt();
-                return new OutInstruction(label, r);
-            case "bnz":
-                r = scanInt();
-                x = scanInt();
-                return new LinInstruction(label, r, x);
+        Object[] parameters;
+        String in = scan();
+        char c = in.charAt(0);
+        c = Character.toUpperCase(c);
+        StringBuffer sb = new StringBuffer(in);
+        sb.setCharAt(0, c);
+        String strIn = sb.toString();
+        strIn = strIn + "Instruction";
+
+        Class reflectClass;
+
+        try {
+            reflectClass = Class.forName(strIn);
+            Constructor[] constructors = reflectClass.getConstructors();
+            Constructor constructor = constructors[1];
+            Class[] parameterTypes = constructor.getParameterTypes();
+            parameters = new Object[parameterTypes.length];
+
+            for (int i=0; i < parameters.length; i++) {
+                if ( i == 0 ) {
+                    parameters[i] = label;
+                } else {
+                    Class tryClass = parameterTypes[i];
+                    if ( tryClass.getName().equals("int") ) {
+                        Integer parameter = scanInt();
+                        parameters[i] = parameter;
+                    } else if ( tryClass.getName().equals("java.lang.String") ) {
+                        String parameter = scan();
+                        parameters[i] = parameter;
+                    }
+                }
+            }
+
+            return (Instruction) constructor.newInstance(parameters);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        return null;
+		    return null;
     }
 
     /*
