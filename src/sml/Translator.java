@@ -18,7 +18,7 @@ import java.util.Scanner;
  */
 public final class Translator {
 
-    private static final String PATH = "";
+    private static final String PATH = "C:\\Users\\Joe Worsfold\\Documents\\StuGitHub\\SDP\\coursework-one-sml-jworsf01\\resources\\";
 
     // word + line is the part of the current line that's not yet processed
     // word has no whitespace

@@ -40,11 +40,11 @@ public final class Labels {
      */
     public int indexOf(String lab) {
 
-        // invariant: lab is not in labels[0..i-1]
-        for (int i = 0; i != labels.size(); i++) {
-            if (lab.equals(labels.get(i))) {
-                return i;
-            }
+            // invariant: lab is not in labels[0..i-1]
+            for (int i = 0; i != labels.size(); i++) {
+                if (lab.equals(labels.get(i))) {
+                    return i;
+                }
         }
         return -1;
     }
