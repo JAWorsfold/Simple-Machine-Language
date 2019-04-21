@@ -30,6 +30,7 @@ class MachineTest {
       regInput += 2;
     }
     registers.setRegisters(regValues);
+    machine.setRegisters(registers);
   }
 
   @AfterEach
@@ -66,12 +67,14 @@ class MachineTest {
 
   @Test
   void getRegisters() {
-
+    assertEquals(registers, machine.getRegisters());
+    assertEquals(2, machine.getRegisters().getRegister(0));
+    machine.getRegisters().setRegister(31, -2);
+    assertEquals(-2, machine.getRegisters().getRegister(31));
   }
 
   @Test
   void setRegisters() {
-    machine.setRegisters(registers);
     for (int i = 0; i < 32; i++) {
       assertEquals(machine.getRegisters().getRegister(i), registers.getRegister(i));
     }
