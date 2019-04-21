@@ -23,7 +23,7 @@ public class MulInstruction extends Instruction {
    * @param operator2 the second operand
    */
   public MulInstruction(String label, int res, int operator1, int operator2) {
-    this(label, "add");
+    this(label, "mul");
     this.result = res;
     this.op1 = operator1;
     this.op2 = operator2;
