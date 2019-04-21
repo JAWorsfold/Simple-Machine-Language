@@ -9,14 +9,15 @@ import static org.junit.jupiter.api.Assertions.*;
 class RegistersTest {
 
   Registers registers;
+  int[] regValues;
   int regLength = 32;
 
   @BeforeEach
   void setUp() {
     registers = new Registers();
-    int[] regValues = new int[regLength];
+    regValues = new int[regLength];
     int regInput = 2;
-    for (int i = 0; i < 32; i++) {
+    for (int i = 0; i < regLength; i++) {
       regValues[i] = regInput;
       regInput += 2;
     }
@@ -32,6 +33,10 @@ class RegistersTest {
   void setRegister() {
   }
 
+  /**
+   * Test getRegisters for my register of multiples of two.
+   * Assert that an ArrayIndexOutOfBoundsException is thrown if trying to access an index above 31.
+   */
   @Test
   void getRegister() {
     assertEquals(2, registers.getRegister(0));
@@ -40,8 +45,17 @@ class RegistersTest {
     assertThrows(ArrayIndexOutOfBoundsException.class, () -> { registers.getRegister(32); });
   }
 
+  /**
+   * Get registers returns int array of my 'registers' array and assigns it to testGetReg.
+   * Then tests that each index value in the new array is equal to those in regValues, in
+   * which the values were initially copied.
+   */
   @Test
   void getRegisters() {
+    int[] testGetReg = registers.getRegisters();
+    for (int i = 0; i < regLength; i++) {
+      assertEquals(regValues[i], testGetReg[i]);
+    }
   }
 
   @Test
