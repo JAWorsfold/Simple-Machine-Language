@@ -41,7 +41,7 @@ public final class Registers {
     }
 
     public void setRegisters(int[] regs) {
-        System.arraycopy(registers, 0, regs, 0, registers.length);
+        System.arraycopy(regs, 0, registers, 0, registers.length);
     }
 
     @Override
