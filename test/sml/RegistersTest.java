@@ -4,17 +4,21 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class RegistersTest {
 
   Registers registers;
+  Registers otherReg;
   int[] regValues;
   int regLength = 32;
 
   @BeforeEach
   void setUp() {
     registers = new Registers();
+    otherReg = new Registers();
     regValues = new int[regLength];
     int regInput = 2;
     for (int i = 0; i < regLength; i++) {
@@ -89,7 +93,6 @@ class RegistersTest {
    */
   @Test
   void equals() {
-    Registers otherReg = new Registers();
     assertFalse(registers.equals(otherReg));
     otherReg.setRegisters(regValues);
     assertTrue(registers.equals(otherReg));
@@ -99,8 +102,21 @@ class RegistersTest {
 
   }
 
+  /**
+   * Created a hascode 'result' from registers in the same way as the hashCode method.
+   * Tested equality between 'result' and registers hashCode. Also tested against
+   * otherReg.
+   */
   @Test
   void hashCodeTest() {
+    int hashCode = Arrays.hashCode(registers.getRegisters());
+    int prime = 59;
+    int result = 1;
+    result = result * prime + hashCode;
+    assertEquals(result, registers.hashCode());
+    assertNotEquals(registers.hashCode(), otherReg.hashCode());
+    otherReg = registers;
+    assertEquals(registers.hashCode(), otherReg.hashCode());
   }
 
   /**
