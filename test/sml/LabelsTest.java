@@ -18,6 +18,9 @@ class LabelsTest {
     labelOne = "One";
     labelTwo = "Two";
     labelThree = "Three";
+    labels.addLabel(labelOne);
+    labels.addLabel(labelTwo);
+    labels.addLabel(labelThree);
   }
 
   @AfterEach
@@ -30,13 +33,16 @@ class LabelsTest {
    */
   @Test
   void addLabel() {
-    assertEquals(0, labels.addLabel(labelOne));
-    assertEquals(1, labels.addLabel(labelTwo));
-    assertEquals(2, labels.addLabel(labelThree));
+    assertEquals(3, labels.addLabel("Four"));
+    assertEquals(4, labels.addLabel("Five"));
+    assertEquals(5, labels.addLabel("Six"));
   }
 
   @Test
   void indexOf() {
+    assertEquals(0, labels.indexOf("One"));
+    assertEquals(1, labels.indexOf("Two"));
+    assertEquals(2, labels.indexOf("Three"));
   }
 
   @Test
