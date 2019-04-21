@@ -16,13 +16,14 @@ class MachineTest {
   int regLength = 32;
   Labels labels;
 
-
   @BeforeEach
   void setUp() {
     machine = new Machine();
     anotherMachine = new Machine();
-    registers = new Registers();
     anotherReg = new Registers();
+
+    // Set registers
+    registers = new Registers();
     regValues = new int[regLength];
     int regInput = 2;
     for (int i = 0; i < regLength; i++) {
@@ -31,10 +32,24 @@ class MachineTest {
     }
     registers.setRegisters(regValues);
     machine.setRegisters(registers);
+
+    // Set labels
+    labels = new Labels();
+    labels.addLabel("One");
+    labels.addLabel("Two");
+    labels.addLabel("Three");
+    machine.setLabels(labels);
+
+    // Set
+
   }
 
   @AfterEach
   void tearDown() {
+    machine = null;
+    anotherMachine = null;
+    registers = null;
+    anotherReg = null;
   }
 
   @Test
@@ -51,10 +66,14 @@ class MachineTest {
 
   @Test
   void getLabels() {
+    assertEquals(labels, machine.getLabels());
+    assertEquals(0, machine.getLabels().indexOf("One"));
+    assertEquals(2, machine.getLabels().indexOf("Three"));
   }
 
   @Test
   void setLabels() {
+    assertEquals(labels, machine.getLabels());
   }
 
   @Test
