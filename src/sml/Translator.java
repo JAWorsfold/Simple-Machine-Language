@@ -116,12 +116,11 @@ public final class Translator {
                 return new LinInstruction(label, r, s1);
             case "out":
                 r = scanInt();
-                s1 = scanInt();
-                return new LinInstruction(label, r, s1);
+                return new OutInstruction(label, r);
             case "bnz":
                 r = scanInt();
-                s1 = scanInt();
-                return new LinInstruction(label, r, s1);
+                x = scanInt();
+                return new LinInstruction(label, r, x);
         }
 
         return null;
