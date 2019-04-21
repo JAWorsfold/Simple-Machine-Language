@@ -50,6 +50,7 @@ class MachineTest {
     anotherMachine = null;
     registers = null;
     anotherReg = null;
+    labels = null;
   }
 
   @Test
@@ -104,11 +105,14 @@ class MachineTest {
   }
 
   @Test
-  void getPc() {
-  }
-
-  @Test
-  void setPc() {
+  void setPcGetPc() {
+    assertEquals(0, machine.getPc());
+    machine.setPc(3);
+    assertEquals(3, machine.getPc());
+    machine.setPc(33);
+    assertEquals(33, machine.getPc());
+    machine.setPc(-13);
+    assertEquals(-13, machine.getPc());
   }
 
   @Test
