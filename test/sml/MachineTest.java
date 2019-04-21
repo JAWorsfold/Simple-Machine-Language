@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MachineTest {
 
   Machine machine;
-  Machine anotherMachine;
+  Machine machineTwo;
   Registers registers;
   Registers anotherReg;
   Instruction addInstruction;
@@ -26,7 +26,7 @@ class MachineTest {
   @BeforeEach
   void setUp() {
     machine = new Machine();
-    anotherMachine = new Machine();
+    machineTwo = new Machine();
     anotherReg = new Registers();
 
     // Set registers
@@ -49,19 +49,19 @@ class MachineTest {
 
     // Set prog
     addInstruction = new AddInstruction("l1", 0, 1, 2);
-    linInstruction = new LinInstruction("l2", 0, 1);
+    linInstruction = new LinInstruction("L1", 1, 66);
     instructions = new ArrayList<>();
-    instructions.add(addInstruction);
     instructions.add(linInstruction);
   }
 
   @AfterEach
   void tearDown() {
     machine = null;
-    anotherMachine = null;
+    machineTwo = null;
     registers = null;
     anotherReg = null;
     labels = null;
+    instructions = null;
   }
 
   @Test
@@ -90,9 +90,10 @@ class MachineTest {
 
   @Test
   void getProg() {
+    instructions.add(addInstruction);
     machine.setProg(instructions);
-    assertEquals(addInstruction, machine.getProg().get(0));
-    assertEquals(linInstruction, machine.getProg().get(1));
+    assertEquals(addInstruction, machine.getProg().get(1));
+    assertEquals(linInstruction, machine.getProg().get(0));
   }
 
   @Test
@@ -133,19 +134,34 @@ class MachineTest {
 
   @Test
   void equals() {
-
+    ////machine.execute();
+    ////labels.reset();
+    ////labels.addLabel("L1");
+    ////machine.setLabels(labels);
+    ////machine.setProg(instructions);
+    ////machine.getRegisters().setRegister(1, 66);
+    ////Machine machineTwo = new Machine();
+    //Translator translator = new Translator("test1.sml");
+    //translator.readAndTranslate(machine.getLabels(), machine.getProg());
+    //translator = new Translator("test1.sml");
+    //translator.readAndTranslate(machineTwo.getLabels(), machineTwo.getProg());
+    //machine.execute();
+    //machineTwo.execute();
+    //System.out.println(machine.getRegisters().toString());
+    //System.out.println(machineTwo.getRegisters().toString());
+    //assertEquals(machine, machineTwo);
   }
 
   @Test
   void hashCodeTest() {
-    assertNotEquals(machine.hashCode(), anotherMachine.hashCode());
-    machine = anotherMachine;
-    assertEquals(machine.hashCode(), anotherMachine.hashCode());
+    assertNotEquals(machine.hashCode(), machineTwo.hashCode());
+    machine = machineTwo;
+    assertEquals(machine.hashCode(), machineTwo.hashCode());
   }
 
   @Test
   void canEqual() {
-    assertTrue(machine.canEqual(anotherMachine));
+    assertTrue(machine.canEqual(machineTwo));
     assertFalse(machine.canEqual(registers));
   }
 }
