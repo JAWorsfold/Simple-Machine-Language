@@ -3,6 +3,10 @@ package sml;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import sml.instructions.AddInstruction;
+import sml.instructions.LinInstruction;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,6 +16,9 @@ class MachineTest {
   Machine anotherMachine;
   Registers registers;
   Registers anotherReg;
+  Instruction addInstruction;
+  Instruction linInstruction;
+  ArrayList<Instruction> instructions;
   int[] regValues;
   int regLength = 32;
   Labels labels;
@@ -40,8 +47,12 @@ class MachineTest {
     labels.addLabel("Three");
     machine.setLabels(labels);
 
-    // Set
-
+    // Set prog
+    addInstruction = new AddInstruction("l1", 0, 1, 2);
+    linInstruction = new LinInstruction("l2", 0, 1);
+    instructions = new ArrayList<>();
+    instructions.add(addInstruction);
+    instructions.add(linInstruction);
   }
 
   @AfterEach
@@ -79,10 +90,15 @@ class MachineTest {
 
   @Test
   void getProg() {
+    machine.setProg(instructions);
+    assertEquals(addInstruction, machine.getProg().get(0));
+    assertEquals(linInstruction, machine.getProg().get(1));
   }
 
   @Test
   void setProg() {
+    machine.setProg(instructions);
+    assertEquals(instructions, machine.getProg());
   }
 
   @Test
@@ -117,6 +133,7 @@ class MachineTest {
 
   @Test
   void equals() {
+
   }
 
   @Test
