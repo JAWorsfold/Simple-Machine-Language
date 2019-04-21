@@ -83,8 +83,20 @@ class RegistersTest {
     }
   }
 
+  /**
+   * Created a new Registers object otherReg and set it with the same values as 'registers'.
+   * Tested that they are equal and various other cases were they are and aren't equal.
+   */
   @Test
   void equals() {
+    Registers otherReg = new Registers();
+    assertFalse(registers.equals(otherReg));
+    otherReg.setRegisters(regValues);
+    assertTrue(registers.equals(otherReg));
+    assertTrue(registers.equals(registers));
+    otherReg.setRegister(0, 0);
+    assertFalse(registers.equals(otherReg));
+
   }
 
   @Test
